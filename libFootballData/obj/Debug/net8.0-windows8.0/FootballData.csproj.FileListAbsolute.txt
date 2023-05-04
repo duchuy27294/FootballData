@@ -1,0 +1,12 @@
+E:\Programmierung\C#\FootballData\FootballData\bin\Debug\net8.0-windows8.0\FootballData.deps.json
+E:\Programmierung\C#\FootballData\FootballData\bin\Debug\net8.0-windows8.0\FootballData.dll
+E:\Programmierung\C#\FootballData\FootballData\bin\Debug\net8.0-windows8.0\FootballData.pdb
+E:\Programmierung\C#\FootballData\FootballData\obj\Debug\net8.0-windows8.0\FootballData.csproj.AssemblyReference.cache
+E:\Programmierung\C#\FootballData\FootballData\obj\Debug\net8.0-windows8.0\FootballData.GeneratedMSBuildEditorConfig.editorconfig
+E:\Programmierung\C#\FootballData\FootballData\obj\Debug\net8.0-windows8.0\FootballData.AssemblyInfoInputs.cache
+E:\Programmierung\C#\FootballData\FootballData\obj\Debug\net8.0-windows8.0\FootballData.AssemblyInfo.cs
+E:\Programmierung\C#\FootballData\FootballData\obj\Debug\net8.0-windows8.0\FootballData.csproj.CoreCompileInputs.cache
+E:\Programmierung\C#\FootballData\FootballData\obj\Debug\net8.0-windows8.0\FootballData.dll
+E:\Programmierung\C#\FootballData\FootballData\obj\Debug\net8.0-windows8.0\refint\FootballData.dll
+E:\Programmierung\C#\FootballData\FootballData\obj\Debug\net8.0-windows8.0\FootballData.pdb
+E:\Programmierung\C#\FootballData\FootballData\obj\Debug\net8.0-windows8.0\ref\FootballData.dll

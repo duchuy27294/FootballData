@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "yPf7BDpXHqfCEOk0kRwl0WQd5KPSzC5dYTsVEvvF6mgc0r1HDM3aLp7si9SDVicIYtCs1X3Gu3mASiEm2JuiXQ==",
+  "success": true,
+  "projectFilePath": "E:\\Programmierung\\C#\\FootballData\\libFootballData\\libFootballData.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\duchu\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
