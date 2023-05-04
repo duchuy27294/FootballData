@@ -10,7 +10,7 @@ using libFootballData.country;
 
 namespace libFootballData {
 	public class FootballData {
-		private string apiKey;
+		private string? apiKey;
 		private static readonly string apiKeyHeaderKey = "X-RapidAPI-Key";
 		private static readonly string apiHostHeaderKey = "X-RapidAPI-Host";
 		private static readonly string apiHostHeaderValue = "api-football-v1.p.rapidapi.com";
@@ -25,6 +25,18 @@ namespace libFootballData {
 		private UriBuilder builder;
 		private string? jsonResponseStr;
 
+		public FootballData() {
+			this.client = new HttpClient();
+
+			this.request = new HttpRequestMessage();
+			this.request.Method = HttpMethod.Get;
+			this.request.Content?.Headers.Add("Content-Type", "application/json");
+			this.request.Headers.Add(FootballData.apiKeyHeaderKey, apiKey);
+			this.request.Headers.Add(FootballData.apiHostHeaderKey, FootballData.apiHostHeaderValue);
+
+			this.builder = new UriBuilder(apiHost);
+		}
+
 		public FootballData(string apiKey) {
 			this.apiKey = apiKey;
 			this.client = new HttpClient();
@@ -38,7 +50,7 @@ namespace libFootballData {
 			this.builder = new UriBuilder(apiHost);
 		}
 
-		public string ApiKey {
+		public string? ApiKey {
 			get {
 				return this.apiKey;
 			}

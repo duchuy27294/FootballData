@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "522C5h3uuD2mtTRmzQWUgQ8MmSgMVte0+ztQY1unHH8LvyY6I6/XQdn6HjvY6+CbT+R9mABORm9uuPfKvDFm+A==",
+  "dgSpecHash": "clDWbUuc0VpMyRI6wp8GBXfkPReOMT99fC38kKxNXWFBG5XQKVUE7NNmfTt0hmL1+Vu3O372PNCH0UZEQTWaXw==",
   "success": true,
-  "projectFilePath": "E:\\Programmierung\\C#\\FootballData\\libFootballData\\libFootballData.csproj",
+  "projectFilePath": "E:\\Programmierung\\C#\\FootballData\\FootballDataApp\\FootballDataApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\duchu\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\duchu\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.28\\microsoft.windows.sdk.net.ref.10.0.22621.28.nupkg.sha512"
