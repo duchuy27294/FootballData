@@ -31,7 +31,7 @@ namespace libFootballData {
 			this.request = new HttpRequestMessage();
 			this.request.Method = HttpMethod.Get;
 			this.request.Content?.Headers.Add("Content-Type", "application/json");
-			this.request.Headers.Add(FootballData.apiKeyHeaderKey, apiKey);
+			//this.request.Headers.Add(FootballData.apiKeyHeaderKey, apiKey);
 			this.request.Headers.Add(FootballData.apiHostHeaderKey, FootballData.apiHostHeaderValue);
 
 			this.builder = new UriBuilder(apiHost);
@@ -56,6 +56,11 @@ namespace libFootballData {
 			}
 			set {
 				this.apiKey = value;
+				if (this.request.Headers.Contains(FootballData.apiKeyHeaderKey)) {
+					
+					this.request.Headers.Remove(FootballData.apiKeyHeaderKey);
+				}
+				this.request.Headers.Add(FootballData.apiKeyHeaderKey, apiKey);
 			}
 		}
 
@@ -137,6 +142,34 @@ namespace libFootballData {
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
 
 			return JsonConvert.DeserializeObject<List<ResponsePlayer>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
+		}
+
+		public List<ResponseLeague>? SearchLeague(string name, string country) {
+			this.builder.Query = string.Empty;
+			this.builder.Path = FootballData.pathLeague;
+
+			string modifiedName = name;
+			if (modifiedName.Contains(" ")) {
+				modifiedName.Replace(" ", "%%20");
+			}
+
+			this.builder.Query += "name=" + modifiedName;
+
+			if (country.Length > 0) {
+				string modifiedCountry = country;
+				if (modifiedCountry.Contains(" ")) {
+					modifiedCountry.Replace(" ", "%%20");
+				}
+				this.builder.Query += "&country=" + modifiedCountry;
+			}
+
+			this.request.RequestUri = this.builder.Uri;
+
+			this.response = this.client.SendAsync(this.request).Result;
+			this.response.EnsureSuccessStatusCode();
+			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
+
+			return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
 		public List<ResponseLeague>? SearchLeague(string name, string country = "", string type = "") {
@@ -244,28 +277,28 @@ namespace libFootballData {
 			return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
-		public List<ResponseLeague>? SearchLeague(string country, string type = "") {
-			this.builder.Query = string.Empty;
-			this.builder.Path = FootballData.pathLeague;
+		//public List<ResponseLeague>? SearchLeague(string country, string type = "") {
+		//	this.builder.Query = string.Empty;
+		//	this.builder.Path = FootballData.pathLeague;
 
-			string modifiedCountry = country;
-			if (modifiedCountry.Contains(" ")) {
-				modifiedCountry.Replace(" ", "%%20");
-			}
-			this.builder.Query += "&country=" + modifiedCountry;
+		//	string modifiedCountry = country;
+		//	if (modifiedCountry.Contains(" ")) {
+		//		modifiedCountry.Replace(" ", "%%20");
+		//	}
+		//	this.builder.Query += "country=" + modifiedCountry;
 
-			if (type.Length > 0) {
-				this.builder.Query += "&type=" + type;
-			}
+		//	if (type.Length > 0) {
+		//		this.builder.Query += "&type=" + type;
+		//	}
 
-			this.request.RequestUri = this.builder.Uri;
+		//	this.request.RequestUri = this.builder.Uri;
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
-			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
+		//	this.response = this.client.SendAsync(this.request).Result;
+		//	this.response.EnsureSuccessStatusCode();
+		//	this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
 
-			return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
-		}
+		//	return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
+		//}
 
 		public List<ResponseLeague>? SearchLeague(string country, int season, string type = "") {
 			this.builder.Query = string.Empty;
@@ -275,7 +308,7 @@ namespace libFootballData {
 			if (modifiedCountry.Contains(" ")) {
 				modifiedCountry.Replace(" ", "%%20");
 			}
-			this.builder.Query += "&country=" + modifiedCountry;
+			this.builder.Query += "country=" + modifiedCountry;
 
 			this.builder.Query += "&season=" + season.ToString();
 

@@ -50,6 +50,14 @@
 			btnPrevious = new Button();
 			btnNext = new Button();
 			pnResult = new TableLayoutPanel();
+			tbName = new TextBox();
+			tbFirstName = new TextBox();
+			tbLastName = new TextBox();
+			tbAge = new TextBox();
+			tbNationality = new TextBox();
+			tbInjured = new TextBox();
+			tbTeam = new TextBox();
+			tbLeague = new TextBox();
 			pnApiKey.SuspendLayout();
 			layoutMain.SuspendLayout();
 			layoutInfoSearch.SuspendLayout();
@@ -134,7 +142,7 @@
 			// 
 			layoutSearchFields.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			layoutSearchFields.ColumnCount = 2;
-			layoutSearchFields.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 90F));
+			layoutSearchFields.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
 			layoutSearchFields.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 			layoutSearchFields.Controls.Add(lblNameSearch, 0, 0);
 			layoutSearchFields.Controls.Add(lblLeagueSearch, 0, 1);
@@ -157,9 +165,9 @@
 			lblNameSearch.AutoSize = true;
 			lblNameSearch.Location = new Point(3, 12);
 			lblNameSearch.Name = "lblNameSearch";
-			lblNameSearch.Size = new Size(59, 25);
+			lblNameSearch.Size = new Size(108, 25);
 			lblNameSearch.TabIndex = 0;
-			lblNameSearch.Text = "Name";
+			lblNameSearch.Text = "Player name";
 			lblNameSearch.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// lblLeagueSearch
@@ -176,17 +184,17 @@
 			// tbNameSearch
 			// 
 			tbNameSearch.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-			tbNameSearch.Location = new Point(93, 9);
+			tbNameSearch.Location = new Point(123, 9);
 			tbNameSearch.Name = "tbNameSearch";
-			tbNameSearch.Size = new Size(668, 31);
+			tbNameSearch.Size = new Size(638, 31);
 			tbNameSearch.TabIndex = 2;
 			// 
 			// tbLeagueSearch
 			// 
 			tbLeagueSearch.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-			tbLeagueSearch.Location = new Point(93, 59);
+			tbLeagueSearch.Location = new Point(123, 59);
 			tbLeagueSearch.Name = "tbLeagueSearch";
-			tbLeagueSearch.Size = new Size(668, 31);
+			tbLeagueSearch.Size = new Size(638, 31);
 			tbLeagueSearch.TabIndex = 3;
 			// 
 			// lblCountrySearch
@@ -203,9 +211,9 @@
 			// tbCountrySearch
 			// 
 			tbCountrySearch.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-			tbCountrySearch.Location = new Point(93, 116);
+			tbCountrySearch.Location = new Point(123, 116);
 			tbCountrySearch.Name = "tbCountrySearch";
-			tbCountrySearch.Size = new Size(668, 31);
+			tbCountrySearch.Size = new Size(638, 31);
 			tbCountrySearch.TabIndex = 5;
 			// 
 			// pbPhoto
@@ -231,6 +239,14 @@
 			tableLayoutPanel1.Controls.Add(lblInjured, 0, 5);
 			tableLayoutPanel1.Controls.Add(lblTeam, 0, 6);
 			tableLayoutPanel1.Controls.Add(lblLeague, 0, 7);
+			tableLayoutPanel1.Controls.Add(tbName, 1, 0);
+			tableLayoutPanel1.Controls.Add(tbFirstName, 1, 1);
+			tableLayoutPanel1.Controls.Add(tbLastName, 1, 2);
+			tableLayoutPanel1.Controls.Add(tbAge, 1, 3);
+			tableLayoutPanel1.Controls.Add(tbNationality, 1, 4);
+			tableLayoutPanel1.Controls.Add(tbInjured, 1, 5);
+			tableLayoutPanel1.Controls.Add(tbTeam, 1, 6);
+			tableLayoutPanel1.Controls.Add(tbLeague, 1, 7);
 			tableLayoutPanel1.Location = new Point(3, 353);
 			tableLayoutPanel1.Name = "tableLayoutPanel1";
 			tableLayoutPanel1.RowCount = 8;
@@ -382,6 +398,78 @@
 			pnResult.Size = new Size(896, 56);
 			pnResult.TabIndex = 4;
 			// 
+			// tbName
+			// 
+			tbName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			tbName.Location = new Point(113, 7);
+			tbName.Name = "tbName";
+			tbName.ReadOnly = true;
+			tbName.Size = new Size(774, 31);
+			tbName.TabIndex = 8;
+			// 
+			// tbFirstName
+			// 
+			tbFirstName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			tbFirstName.Location = new Point(113, 52);
+			tbFirstName.Name = "tbFirstName";
+			tbFirstName.ReadOnly = true;
+			tbFirstName.Size = new Size(774, 31);
+			tbFirstName.TabIndex = 9;
+			// 
+			// tbLastName
+			// 
+			tbLastName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			tbLastName.Location = new Point(113, 97);
+			tbLastName.Name = "tbLastName";
+			tbLastName.ReadOnly = true;
+			tbLastName.Size = new Size(774, 31);
+			tbLastName.TabIndex = 10;
+			// 
+			// tbAge
+			// 
+			tbAge.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			tbAge.Location = new Point(113, 142);
+			tbAge.Name = "tbAge";
+			tbAge.ReadOnly = true;
+			tbAge.Size = new Size(774, 31);
+			tbAge.TabIndex = 11;
+			// 
+			// tbNationality
+			// 
+			tbNationality.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			tbNationality.Location = new Point(113, 187);
+			tbNationality.Name = "tbNationality";
+			tbNationality.ReadOnly = true;
+			tbNationality.Size = new Size(774, 31);
+			tbNationality.TabIndex = 12;
+			// 
+			// tbInjured
+			// 
+			tbInjured.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			tbInjured.Location = new Point(113, 232);
+			tbInjured.Name = "tbInjured";
+			tbInjured.ReadOnly = true;
+			tbInjured.Size = new Size(774, 31);
+			tbInjured.TabIndex = 13;
+			// 
+			// tbTeam
+			// 
+			tbTeam.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			tbTeam.Location = new Point(113, 277);
+			tbTeam.Name = "tbTeam";
+			tbTeam.ReadOnly = true;
+			tbTeam.Size = new Size(774, 31);
+			tbTeam.TabIndex = 14;
+			// 
+			// tbLeague
+			// 
+			tbLeague.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			tbLeague.Location = new Point(113, 322);
+			tbLeague.Name = "tbLeague";
+			tbLeague.ReadOnly = true;
+			tbLeague.Size = new Size(774, 31);
+			tbLeague.TabIndex = 15;
+			// 
 			// FootballAppGui
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
@@ -435,6 +523,14 @@
 		private Button btnPrevious;
 		private Button btnNext;
 		private TableLayoutPanel pnResult;
+		private TextBox tbName;
+		private TextBox tbFirstName;
+		private TextBox tbLastName;
+		private TextBox tbAge;
+		private TextBox tbNationality;
+		private TextBox tbInjured;
+		private TextBox tbTeam;
+		private TextBox tbLeague;
 
 		public Label LblApiKey { get => lblApiKey; }
 		public TextBox TbApiKey { get => tbApiKey; }
@@ -457,5 +553,13 @@
 		public Label LblResult { get => lblResult; }
 		public Button BtnPrevious { get => btnPrevious; }
 		public Button BtnNext { get => btnNext; }
+		public TextBox TbName { get => tbName; }
+		public TextBox TbFirstName { get => tbFirstName; }
+		public TextBox TbLastName { get => tbLastName; }
+		public TextBox TbAge { get => tbAge; set => tbAge = value; }
+		public TextBox TbNationality { get => tbNationality; }
+		public TextBox TbInjured { get => tbInjured; }
+		public TextBox TbTeam { get => tbTeam; }
+		public TextBox TbLeague { get => tbLeague; }
 	}
 }
