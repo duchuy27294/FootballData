@@ -20,19 +20,19 @@ namespace libFootballData {
 		private static readonly string pathCountry = "/v3/countries";
 		private static readonly string pathTeam = "/v3/teams";
 		private HttpClient client;
-		private HttpRequestMessage request;
-		private HttpResponseMessage? response;
+		//private HttpRequestMessage request;
+		//private HttpResponseMessage? response;
 		private UriBuilder builder;
 		private string? jsonResponseStr;
 
 		public FootballData() {
 			this.client = new HttpClient();
 
-			this.request = new HttpRequestMessage();
-			this.request.Method = HttpMethod.Get;
-			this.request.Content?.Headers.Add("Content-Type", "application/json");
+			//this.request = new HttpRequestMessage();
+			//this.request.Method = HttpMethod.Get;
+			//this.request.Content?.Headers.Add("Content-Type", "application/json");
 			//this.request.Headers.Add(FootballData.apiKeyHeaderKey, apiKey);
-			this.request.Headers.Add(FootballData.apiHostHeaderKey, FootballData.apiHostHeaderValue);
+			//this.request.Headers.Add(FootballData.apiHostHeaderKey, FootballData.apiHostHeaderValue);
 
 			this.builder = new UriBuilder(apiHost);
 		}
@@ -41,11 +41,11 @@ namespace libFootballData {
 			this.apiKey = apiKey;
 			this.client = new HttpClient();
 
-			this.request = new HttpRequestMessage();
-			this.request.Method = HttpMethod.Get;
-			this.request.Content?.Headers.Add("Content-Type", "application/json");
-			this.request.Headers.Add(FootballData.apiKeyHeaderKey, apiKey);
-			this.request.Headers.Add(FootballData.apiHostHeaderKey, FootballData.apiHostHeaderValue);
+			//this.request = new HttpRequestMessage();
+			//this.request.Method = HttpMethod.Get;
+			//this.request.Content?.Headers.Add("Content-Type", "application/json");
+			//this.request.Headers.Add(FootballData.apiKeyHeaderKey, apiKey);
+			//this.request.Headers.Add(FootballData.apiHostHeaderKey, FootballData.apiHostHeaderValue);
 
 			this.builder = new UriBuilder(apiHost);
 		}
@@ -56,12 +56,21 @@ namespace libFootballData {
 			}
 			set {
 				this.apiKey = value;
-				if (this.request.Headers.Contains(FootballData.apiKeyHeaderKey)) {
+				//if (this.request.Headers.Contains(FootballData.apiKeyHeaderKey)) {
 					
-					this.request.Headers.Remove(FootballData.apiKeyHeaderKey);
-				}
-				this.request.Headers.Add(FootballData.apiKeyHeaderKey, apiKey);
+				//	this.request.Headers.Remove(FootballData.apiKeyHeaderKey);
+				//}
+				//this.request.Headers.Add(FootballData.apiKeyHeaderKey, apiKey);
 			}
+		}
+
+		private HttpRequestMessage createRequest() {
+			HttpRequestMessage request = new HttpRequestMessage();
+			request.Method = HttpMethod.Get;
+			request.Content?.Headers.Add("Content-Type", "application/json");
+			request.Headers.Add(FootballData.apiKeyHeaderKey, apiKey);
+			request.Headers.Add(FootballData.apiHostHeaderKey, FootballData.apiHostHeaderValue);
+			return request;
 		}
 
 		public List<ResponseTeam>? SearchTeam(string searchStr) {
@@ -75,11 +84,15 @@ namespace libFootballData {
 
 			this.builder.Query += "search=" + modifiedStr;
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponseTeam>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
@@ -94,15 +107,19 @@ namespace libFootballData {
 
 			this.builder.Query += "name=" + modifiedStr;
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponseTeam>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
-		public List<ResponsePlayer>? SearchPlayerByLeague(string name, int league) {
+		public List<ResponsePlayer>? SearchPlayerByLeague(string name, int? league) {
 			this.builder.Query = string.Empty;
 			this.builder.Path = FootballData.pathPlayer;
 
@@ -114,16 +131,44 @@ namespace libFootballData {
 			this.builder.Query += "search=" + modifiedName;
 			this.builder.Query += "&league=" + league.ToString();
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
-
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponsePlayer>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
-		public List<ResponsePlayer>? SearchPlayerByTeam(string name, int team) {
+		public List<ResponsePlayer>? SearchPlayerByLeague(string name, int? league, int? season) {
+			this.builder.Query = string.Empty;
+			this.builder.Path = FootballData.pathPlayer;
+
+			string modifiedName = name;
+			if (modifiedName.Contains(" ")) {
+				modifiedName.Replace(" ", "%%20");
+			}
+
+			this.builder.Query += "search=" + modifiedName;
+			this.builder.Query += "&league=" + league.ToString();
+			this.builder.Query += "&season=" + season.ToString();
+
+			HttpRequestMessage request = this.createRequest();
+
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
+			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
+			request.Dispose();
+			response.Dispose();
+			return JsonConvert.DeserializeObject<List<ResponsePlayer>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
+		}
+
+		public List<ResponsePlayer>? SearchPlayerByTeam(string name, int? team) {
 			this.builder.Query = string.Empty;
 			this.builder.Path = FootballData.pathPlayer;
 
@@ -135,12 +180,15 @@ namespace libFootballData {
 			this.builder.Query += "search=" + modifiedName;
 			this.builder.Query += "&team=" + team.ToString();
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
-
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponsePlayer>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
@@ -163,12 +211,15 @@ namespace libFootballData {
 				this.builder.Query += "&country=" + modifiedCountry;
 			}
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
-
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
@@ -195,16 +246,19 @@ namespace libFootballData {
 				this.builder.Query += "&type=" + type;
 			}
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
-
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
-		public List<ResponseLeague>? SearchLeague(string name, int season, string country = "", string type = "") {
+		public List<ResponseLeague>? SearchLeague(string name, int? season, string country = "", string type = "") {
 			this.builder.Query = string.Empty;
 			this.builder.Path = FootballData.pathLeague;
 
@@ -229,12 +283,15 @@ namespace libFootballData {
 				this.builder.Query += "&type=" + type;
 			}
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
-
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
@@ -268,12 +325,15 @@ namespace libFootballData {
 				this.builder.Query += "&type=" + type;
 			}
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
-
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
@@ -300,7 +360,7 @@ namespace libFootballData {
 		//	return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		//}
 
-		public List<ResponseLeague>? SearchLeague(string country, int season, string type = "") {
+		public List<ResponseLeague>? SearchLeague(string country, int? season, string type = "") {
 			this.builder.Query = string.Empty;
 			this.builder.Path = FootballData.pathLeague;
 
@@ -316,12 +376,15 @@ namespace libFootballData {
 				this.builder.Query += "&type=" + type;
 			}
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
-
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
@@ -346,12 +409,15 @@ namespace libFootballData {
 				this.builder.Query += "&type=" + type;
 			}
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
-
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponseLeague>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 
@@ -365,12 +431,15 @@ namespace libFootballData {
 			}
 			this.builder.Query += "&search=" + modifiedSearch;
 
-			this.request.RequestUri = this.builder.Uri;
+			HttpRequestMessage request = this.createRequest();
 
-			this.response = this.client.SendAsync(this.request).Result;
-			this.response.EnsureSuccessStatusCode();
+			request.RequestUri = this.builder.Uri;
+
+			HttpResponseMessage response = this.client.SendAsync(request).Result;
+			response.EnsureSuccessStatusCode();
 			this.jsonResponseStr = response.Content.ReadAsStringAsync().Result;
-
+			request.Dispose();
+			response.Dispose();
 			return JsonConvert.DeserializeObject<List<ResponseCountry>>(JsonDocument.Parse(jsonResponseStr).RootElement.GetProperty("response").GetRawText());
 		}
 

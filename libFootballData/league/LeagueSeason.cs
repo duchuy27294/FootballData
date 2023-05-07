@@ -5,15 +5,15 @@ namespace libFootballData.league {
 	public class LeagueSeason {
 
 		[JsonProperty("year")]
-		public int Year { get; set; }
+		public int? Year { get; set; }
 
 		[JsonProperty("start")]
-		public string Start { get; set; }
+		public string? Start { get; set; }
 
 		[JsonProperty("end")]
-		public string End { get; set; }
+		public string? End { get; set; }
 
 		[JsonProperty("current")]
-		public bool Current { get; set; }
+		public bool? Current { get; set; }
 	}
 }

@@ -6,13 +6,13 @@ namespace libFootballData.player
     {
 
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonProperty("country")]
-        public string Country { get; set; }
+        public string? Country { get; set; }
 
         [JsonProperty("logo")]
         public string? Logo { get; set; }
