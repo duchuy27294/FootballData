@@ -1,6 +1,6 @@
-using FootballDataApp.presenter;
-using FootballDataApp.view;
-using libFootballData;
+using HuyPham.Football;
+using HuyPham.FootballDataApp.View;
+using HuyPham.FootballDataApp.Presenter;
 
 namespace FootballDataApp {
 	public class Program {
@@ -14,15 +14,8 @@ namespace FootballDataApp {
 			Application.Run(view);
 		}
 
-		/// <summary>
-		///  The main entry point for the application.
-		/// </summary>
 		[STAThread]
 		static void Main() {
-			// To customize application configuration such as set high DPI settings or default font,
-			// see https://aka.ms/applicationconfiguration.
-			//ApplicationConfiguration.Initialize();
-			//Application.Run(new FootballAppGui());
 			new Program();
 		}
 	}

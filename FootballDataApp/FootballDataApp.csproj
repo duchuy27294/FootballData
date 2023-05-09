@@ -7,10 +7,11 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <RootNamespace>$HuyPham.(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\libFootballData\libFootballData.csproj" />
+    <ProjectReference Include="..\FootballData\FootballData.csproj" />
   </ItemGroup>
 
 </Project>

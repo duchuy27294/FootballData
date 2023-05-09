@@ -1,4 +1,4 @@
-﻿namespace FootballDataApp.view {
+﻿namespace HuyPham.FootballDataApp.View {
 	partial class FootballAppGui {
 		/// <summary>
 		///  Required designer variable.

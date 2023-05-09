@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "FootballDataApp/1.0.0": {
         "dependencies": {
-          "libFootballData": "1.0.0",
+          "FootballData": "1.0.0",
           "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.22621.28"
         },
         "runtime": {
@@ -35,12 +35,12 @@
           }
         }
       },
-      "libFootballData/1.0.0": {
+      "FootballData/1.0.0": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
-          "libFootballData.dll": {}
+          "FootballData.dll": {}
         }
       }
     }
@@ -63,7 +63,7 @@
       "path": "newtonsoft.json/13.0.3",
       "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
-    "libFootballData/1.0.0": {
+    "FootballData/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

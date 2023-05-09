@@ -1,9 +1,9 @@
-﻿using libFootballData;
-using libFootballData.league;
-using FootballDataApp.view;
-using libFootballData.player;
+﻿using HuyPham.Football;
+using HuyPham.Football.FootballLeague;
+using HuyPham.FootballDataApp.View;
+using HuyPham.Football.FootballPlayer;
 
-namespace FootballDataApp.presenter {
+namespace HuyPham.FootballDataApp.Presenter {
 	public class FootballAppController {
 		private FootballData model;
 		private FootballAppGui view;
@@ -28,7 +28,9 @@ namespace FootballDataApp.presenter {
 			List<ResponseLeague> respLeague = this.model.SearchLeague(this.view.TbLeagueSearch.Text, this.view.TbCountrySearch.Text);
 			if (respLeague.Count == 0) return;
 			League? league = respLeague[0].League;
-			this.responsePlayer = this.model.SearchPlayerByLeague(this.view.TbNameSearch.Text, league.Id, 2022);
+			DateTime dateTime = DateTime.Now;
+			int year = (dateTime.Month < 8) ? (dateTime.Year - 1) : dateTime.Year; 
+			this.responsePlayer = this.model.SearchPlayerByLeague(this.view.TbNameSearch.Text, league.Id, year);
 			if (this.responsePlayer.Count == 0) return;
 
 			this.currentIndex = 0;
